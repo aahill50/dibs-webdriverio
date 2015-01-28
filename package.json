@@ -1,0 +1,26 @@
+{
+  "name": "dibs-webdriverio",
+  "version": "0.0.0",
+  "description": "WebdriverIO JS test",
+  "main": "test.js",
+  "scripts": {
+    "start": "mocha test.js",
+    "postinstall": "selenium-standalone install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aahill50/dibs-webdriverIO.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aahill50/dibs-webdriverIO/issues"
+  },
+  "homepage": "https://github.com/aahill50/dibs-webdriverIO",
+  "devDependencies": {
+    "webdriverio": "^2.4.4",
+    "selenium-standalone": "^3.2.0",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1"
+  }
+}
