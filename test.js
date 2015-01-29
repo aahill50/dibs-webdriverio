@@ -3,7 +3,8 @@ var webdriverio = require('webdriverio'),
     chai = require('chai'),
     expect = chai.expect,
     should = chai.should(),
-    homepage = require('./pages/homepage'),
+    homepage = require('./pages/homepage.json'),
+    homepage2 = require('./pages/homepage.js'),
     productDetailPage = require('./pages/pdp'),
     clientOptions = {
         desiredCapabilities: {
@@ -45,6 +46,16 @@ describe("1stdibs.com", function() {
                 .call(done)
         });
 
+        it('should have a search input field - run again', function(done) {
+            client
+                .url(homepage2.baseUrl)
+                .isVisible(homepage2.searchBar, function(err, isVisible) {
+                    expect(err).to.be.undefined();
+                    expect(isVisible).to.be.true();
+                })
+                .call(done)
+        });
+
         it('should autocomplete when a valid search term is entered', function(done) {
             client
                 .url(homepage.baseUrl)
@@ -62,28 +73,29 @@ describe("1stdibs.com", function() {
                 .call(done)
         });
 
-        it('should not autocomplete when an invalid search term is entered', function(done) {
-            client
-                .url(homepage.baseUrl)
-                .setValue(homepage.searchBar, "kjhsahjkads")
-                .waitForVisible(homepage.searchResults, 2000, function(err, isVisible) {
-                    expect(err).to.not.be.undefined();
-                    expect(isVisible).to.be.false();
-                })
-                .call(done)
-        });
+    });
+
+    it('should not autocomplete when an invalid search term is entered', function(done) {
+        client
+            .url(homepage.baseUrl)
+            .setValue(homepage.searchBar, "kjhsahjkads")
+            .waitForVisible(homepage.searchResults, 2000, function(err, isVisible) {
+                expect(err).to.not.be.undefined();
+                expect(isVisible).to.be.false();
+            })
+            .call(done)
     });
 
     describe("Product Detail Page", function() {
-       it('should contain an item description', function(done) {
-           client
-               .url(productDetailPage.baseUrl)
-               .isVisible(productDetailPage.itemDescription, function(err, isVisible) {
-                   expect(err).to.be.undefined();
-                   expect(isVisible).to.be.true();
-               })
-               .call(done)
-       });
+        it('should contain an item description', function(done) {
+            client
+                .url(productDetailPage.baseUrl)
+                .isVisible(productDetailPage.itemDescription, function(err, isVisible) {
+                    expect(err).to.be.undefined();
+                    expect(isVisible).to.be.true();
+                })
+                .call(done)
+        });
 
         it('should contain item details', function(done) {
             client
