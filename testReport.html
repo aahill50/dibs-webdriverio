@@ -1,0 +1,76 @@
+    <section class="suite">
+      <h1>1stdibs.com</h1>
+      <dl>
+        <section class="suite">
+          <h1>Global Search</h1>
+          <dl>
+            <dt>should have a search input field</dt>
+            <dd><pre><code>client
+    .url(homepage.baseUrl)
+    .isVisible(homepage.searchBar, function(err, isVisible) {
+        expect(err).to.be.undefined();
+        expect(isVisible).to.be.true();
+    })
+    .call(done)</code></pre></dd>
+            <dt>should autocomplete when a valid search term is entered</dt>
+            <dd><pre><code>client
+    .url(homepage.baseUrl)
+    .setValue(homepage.searchBar, &quot;gold&quot;)
+    .waitForVisible(homepage.searchResults, 5000, function(err, isVisible) {
+        expect(err).to.be.undefined();
+        expect(isVisible).to.be.true();
+    })
+    .getText(homepage.searchResults, function(err, resultText) {
+        expect(err).to.be.undefined();
+        expect(resultText).to.contain(&quot;gold&quot;);
+        expect(resultText).to.contain(&quot;POPULAR SEARCHES&quot;);
+        expect(resultText).to.contain(&quot;DEALERS&quot;);
+    })
+    .call(done)</code></pre></dd>
+            <dt>should not autocomplete when an invalid search term is entered</dt>
+            <dd><pre><code>client
+    .url(homepage.baseUrl)
+    .setValue(homepage.searchBar, &quot;kjhsahjkads&quot;)
+    .waitForVisible(homepage.searchResults, 2000, function(err, isVisible) {
+        expect(err).to.not.be.undefined();
+        expect(isVisible).to.be.false();
+    })
+    .call(done)</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>Product Detail Page</h1>
+          <dl>
+            <dt>should contain an item description</dt>
+            <dd><pre><code>client
+    .url(productDetailPage.baseUrl)
+    .isVisible(productDetailPage.itemDescription, function(err, isVisible) {
+        expect(err).to.be.undefined();
+        expect(isVisible).to.be.true();
+    })
+    .call(done)</code></pre></dd>
+            <dt>should contain item details</dt>
+            <dd><pre><code>client
+    .url(productDetailPage.baseUrl)
+    .isVisible(productDetailPage.itemDetails, function(err, isVisible) {
+        expect(err).to.be.undefined();
+        expect(isVisible).to.be.true();
+    })
+    .getText(productDetailPage.itemDetails, function(err,resultText) {
+        expect(err).to.be.undefined();
+        productDetailPage.itemAttributes.forEach(function(attr) {
+            expect(resultText).to.contain(attr);
+        });
+    })
+    .call(done)</code></pre></dd>
+            <dt class="error">should fail</dt>
+            <dd class="error"><pre><code>expect(4).to.equal(5);</code></pre></dd>
+            <dd class="error">AssertionError: expected 4 to equal 5</dd>
+            <dt>should pass</dt>
+            <dd><pre><code>expect(4).to.equal(4);</code></pre></dd>
+            <dt>should execute this test</dt>
+            <dd><pre><code>expect(true).to.be.ok();</code></pre></dd>
+          </dl>
+        </section>
+      </dl>
+    </section>

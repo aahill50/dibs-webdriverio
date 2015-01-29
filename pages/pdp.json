@@ -1,0 +1,17 @@
+{
+  "baseUrl": "https://www.1stdibs.com/furniture/more-furniture-collectibles/sculptures/cat/id-f_409934/",
+  "itemDescription": "p.item-description",
+  "itemDetails": "div.item-data",
+  "itemAttributes":[
+      "PRICE",
+      "PLACE OF ORIGIN",
+      "DATE OF MANUFACTURE",
+      "PERIOD",
+      "MATERIALS AND TECHNIQUES",
+      "MATERIALS NOTES",
+      "CONDITION",
+      "WEAR",
+      "HEIGHT",
+      "WIDTH",
+      "DEPTH" ]
+}

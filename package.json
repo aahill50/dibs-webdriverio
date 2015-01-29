@@ -4,7 +4,7 @@
   "description": "WebdriverIO JS test",
   "main": "test.js",
   "scripts": {
-    "start": "mocha test.js",
+    "start": "mocha --reporter doc test.js > testReport.html; open testReport.html",
     "postinstall": "selenium-standalone install"
   },
   "repository": {
