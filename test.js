@@ -10,37 +10,36 @@ var webdriverio = require('webdriverio'),
         }
     };
 
+selenium.start(function(err, child) {
+    selenium.child = child;
+});
+
 describe("1stdibs - Global Search", function() {
     this.timeout(10000);
     var client = {};
 
-    before(function(done) {
-        selenium.start(function(err, child) {
-            selenium.child = child;
-            client = webdriverio.remote(clientOptions);
-            client.call(done);
-        });
-    });
-
     beforeEach(function(done) {
-        client.init(done)
+        client = webdriverio.remote(clientOptions);
+        client
+            .pause(300)
+            .init(done)
     });
 
     it('should have a search input field', function(done) {
         client
             .url('http://www.1stdibs.com')
             .isVisible(homepage.searchBar, function(err, isVisible) {
+                expect(err).to.be.undefined();
                 expect(isVisible).to.be.true();
             })
             .call(done)
     });
 
-    it('should show search results when a valid search term is entered', function(done) {
+    it('should autocomplete when a valid search term is entered', function(done) {
         client
             .url('http://www.1stdibs.com')
             .setValue(homepage.searchBar, "gold")
-            .waitForVisible(homepage.searchResults, 1000)
-            .isVisible(homepage.searchResults, function(err, isVisible) {
+            .waitForVisible(homepage.searchResults, 1000, function(err, isVisible) {
                 expect(err).to.be.undefined();
                 expect(isVisible).to.be.true();
             })
@@ -53,7 +52,7 @@ describe("1stdibs - Global Search", function() {
             .call(done)
     });
 
-    it('should not show search results when an invalid search term is entered', function(done) {
+    it('should not autocomplete when an invalid search term is entered', function(done) {
         client
             .url('http://www.1stdibs.com')
             .setValue(homepage.searchBar, "kjhsahjkads")
@@ -65,11 +64,13 @@ describe("1stdibs - Global Search", function() {
     });
 
     afterEach(function(done) {
-        client.end(done);
+        client
+            .end(done);
     });
 
     after(function(done) {
+        client.call(done)
+            .endAll();
         selenium.child.kill();
-        client.call(done);
     })
 });

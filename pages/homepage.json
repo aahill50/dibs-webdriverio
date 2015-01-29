@@ -1,4 +1,4 @@
 {
   "searchBar": "input[name=q]",
-  "searchResults": "ul#ui-id-1"
+  "searchResults": "#ui-id-1"
 }
