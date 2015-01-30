@@ -46,14 +46,11 @@ describe("1stdibs.com", function() {
                 .call(done)
         });
 
-        it('should have a search input field - run again', function(done) {
-            client
-                .url(homepage2.baseUrl)
-                .isVisible(homepage2.searchBar, function(err, isVisible) {
-                    expect(err).to.be.undefined();
-                    expect(isVisible).to.be.true();
-                })
-                .call(done)
+        it('should have a search input field - Page Object pattern', function(done) {
+            homepage2.url(client);
+            homepage2.verifyVisible(client, homepage2.searchBar);
+
+            client.call(done);
         });
 
         it('should autocomplete when a valid search term is entered', function(done) {
@@ -114,7 +111,9 @@ describe("1stdibs.com", function() {
         });
 
         it('should fail', function() {
-            expect(4).to.equal(5);
+            expect(4).to.equal(4);
+            expect(4).to.equal(5); //It will skip the remaining assertions in this test due to failure
+            expect(4).to.equal(4);
         });
 
         it('should be pending');

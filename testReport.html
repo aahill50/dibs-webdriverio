@@ -21,14 +21,10 @@
         expect(isVisible).to.be.true();
     })
     .call(done)</code></pre></dd>
-            <dt>should have a search input field - run again</dt>
-            <dd><pre><code>client
-    .url(homepage2.baseUrl)
-    .isVisible(homepage2.searchBar, function(err, isVisible) {
-        expect(err).to.be.undefined();
-        expect(isVisible).to.be.true();
-    })
-    .call(done)</code></pre></dd>
+            <dt>should have a search input field - Page Object pattern</dt>
+            <dd><pre><code>homepage2.url(client);
+homepage2.verifyVisible(client, homepage2.searchBar);
+client.call(done);</code></pre></dd>
             <dt>should autocomplete when a valid search term is entered</dt>
             <dd><pre><code>client
     .url(homepage.baseUrl)
@@ -72,7 +68,9 @@
     })
     .call(done)</code></pre></dd>
             <dt class="error">should fail</dt>
-            <dd class="error"><pre><code>expect(4).to.equal(5);</code></pre></dd>
+            <dd class="error"><pre><code>expect(4).to.equal(4);
+expect(4).to.equal(5); //It will skip the remaining assertions in this test due to failure
+expect(4).to.equal(4);</code></pre></dd>
             <dd class="error">AssertionError: expected 4 to equal 5</dd>
             <dt>should pass</dt>
             <dd><pre><code>expect(4).to.equal(4);</code></pre></dd>
