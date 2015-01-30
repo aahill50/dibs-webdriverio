@@ -4,7 +4,7 @@ var webdriverio = require('webdriverio'),
     expect = chai.expect,
     should = chai.should(),
     homepage = require('./pages/homepage.js'),
-    productDetailPage = require('./pages/pdp'),
+    productDetailPage = require('./pages/pdp.js'),
     clientOptions = {
         desiredCapabilities: {
             browserName: 'chrome'
@@ -57,29 +57,16 @@ describe("1stdibs.com", function() {
 
     describe("Product Detail Page", function() {
         it('should contain an item description', function(done) {
-            client
-                .url(productDetailPage.baseUrl)
-                .isVisible(productDetailPage.itemDescription, function(err, isVisible) {
-                    expect(err).to.be.undefined();
-                    expect(isVisible).to.be.true();
-                })
-                .call(done)
+            productDetailPage.url(client);
+            productDetailPage.verifyVisible(client, productDetailPage.itemDescription);
+            client.call(done);
         });
 
         it('should contain item details', function(done) {
-            client
-                .url(productDetailPage.baseUrl)
-                .isVisible(productDetailPage.itemDetails, function(err, isVisible) {
-                    expect(err).to.be.undefined();
-                    expect(isVisible).to.be.true();
-                })
-                .getText(productDetailPage.itemDetails, function(err,resultText) {
-                    expect(err).to.be.undefined();
-                    productDetailPage.itemAttributes.forEach(function(attr) {
-                        expect(resultText).to.contain(attr);
-                    });
-                })
-                .call(done)
+            productDetailPage.url(client);
+            productDetailPage.verifyVisible(client, productDetailPage.itemDetails);
+            productDetailPage.verifyItemDetails(client);
+            client.call(done);
         });
 
         it('should fail', function() {
@@ -87,10 +74,6 @@ describe("1stdibs.com", function() {
             expect(4).to.equal(5); //It will skip the remaining assertions in this test due to failure
             expect(4).to.equal(4);
         });
-
-        it('should be pending');
-        it('should be pending too');
-        it('should also be pending');
 
         it('should pass', function() {
             expect(4).to.equal(4);

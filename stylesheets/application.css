@@ -1,0 +1,10 @@
+dt {
+    padding: 10px;
+    background: green;
+    color: white;
+}
+
+dt.error {
+    color: white;
+    background: red;
+}
