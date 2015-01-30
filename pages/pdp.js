@@ -1,5 +1,7 @@
-var chai = require('chai'),
-    expect = chai.expect;
+'use strict';
+
+var chai = require('chai');
+var expect = chai.expect;
 
 module.exports = {
     baseUrl: "https://www.1stdibs.com/furniture/more-furniture-collectibles/sculptures/cat/id-f_409934/",

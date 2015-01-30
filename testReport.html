@@ -31,11 +31,6 @@ client.call(done);</code></pre></dd>
 productDetailPage.verifyVisible(client, productDetailPage.itemDetails);
 productDetailPage.verifyItemDetails(client);
 client.call(done);</code></pre></dd>
-            <dt class="error">should fail</dt>
-            <dd class="error"><pre><code>expect(4).to.equal(4);
-expect(4).to.equal(5); //It will skip the remaining assertions in this test due to failure
-expect(4).to.equal(4);</code></pre></dd>
-            <dd class="error">AssertionError: expected 4 to equal 5</dd>
             <dt>should pass</dt>
             <dd><pre><code>expect(4).to.equal(4);</code></pre></dd>
             <dt>should execute this test</dt>
