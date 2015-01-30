@@ -3,8 +3,7 @@ var webdriverio = require('webdriverio'),
     chai = require('chai'),
     expect = chai.expect,
     should = chai.should(),
-    homepage = require('./pages/homepage.json'),
-    homepage2 = require('./pages/homepage.js'),
+    homepage = require('./pages/homepage.js'),
     productDetailPage = require('./pages/pdp'),
     clientOptions = {
         desiredCapabilities: {
@@ -37,50 +36,23 @@ describe("1stdibs.com", function() {
 
     describe("Global Search", function() {
         it('should have a search input field', function(done) {
-            client
-                .url(homepage.baseUrl)
-                .isVisible(homepage.searchBar, function(err, isVisible) {
-                    expect(err).to.be.undefined();
-                    expect(isVisible).to.be.true();
-                })
-                .call(done)
-        });
-
-        it('should have a search input field - Page Object pattern', function(done) {
-            homepage2.url(client);
-            homepage2.verifyVisible(client, homepage2.searchBar);
+            homepage.url(client);
+            homepage.verifyVisible(client, homepage.searchBar);
 
             client.call(done);
         });
 
         it('should autocomplete when a valid search term is entered', function(done) {
-            client
-                .url(homepage.baseUrl)
-                .setValue(homepage.searchBar, "gold")
-                .waitForVisible(homepage.searchResults, 5000, function(err, isVisible) {
-                    expect(err).to.be.undefined();
-                    expect(isVisible).to.be.true();
-                })
-                .getText(homepage.searchResults, function(err, resultText) {
-                    expect(err).to.be.undefined();
-                    expect(resultText).to.contain("gold");
-                    expect(resultText).to.contain("POPULAR SEARCHES");
-                    expect(resultText).to.contain("DEALERS");
-                })
-                .call(done)
+            homepage.url(client);
+            homepage.doValidSearch(client, "gold");
+            client.call(done);
         });
 
-    });
-
-    it('should not autocomplete when an invalid search term is entered', function(done) {
-        client
-            .url(homepage.baseUrl)
-            .setValue(homepage.searchBar, "kjhsahjkads")
-            .waitForVisible(homepage.searchResults, 2000, function(err, isVisible) {
-                expect(err).to.not.be.undefined();
-                expect(isVisible).to.be.false();
-            })
-            .call(done)
+        it('should not autocomplete when an invalid search term is entered', function(done) {
+            homepage.url(client);
+            homepage.doInvalidSearch(client, "kjhsahjkads");
+            client.call(done);
+        });
     });
 
     describe("Product Detail Page", function() {
