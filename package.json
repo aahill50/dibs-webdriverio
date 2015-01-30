@@ -4,7 +4,7 @@
   "description": "WebdriverIO JS test",
   "main": "test.js",
   "scripts": {
-    "start": "mocha --reporter doc test.js | cat html/head.html - html/tail.html > testReport.html; open testReport.html",
+    "start": "./node_modules/mocha/bin/mocha --reporter doc test.js | cat html/head.html - html/tail.html > testReport.html; open testReport.html",
     "postinstall": "selenium-standalone install"
   },
   "repository": {
@@ -21,6 +21,7 @@
     "webdriverio": "^2.4.4",
     "selenium-standalone": "^3.2.0",
     "chai": "^1.10.0",
-    "chai-as-promised": "^4.1.1"
+    "chai-as-promised": "^4.1.1",
+    "mocha": "^2.1.0"
   }
 }
